@@ -1,0 +1,12 @@
+# 全局配置:
+api: 
+  setting: 
+    btcdo: 
+      apiKey: AAAAAYax9qXXXXXXJ2R27f5Eg629bJt3
+      apiSecret: n6qKwe7XXXX8udkJShyP
+      restApiEndpoint: https://xxx.btcdo.org
+# logging config:
+logging:
+  level:
+    crypto.log: INFO
+    com.itranswarp.warpdb.WarpDb: DEBUG
