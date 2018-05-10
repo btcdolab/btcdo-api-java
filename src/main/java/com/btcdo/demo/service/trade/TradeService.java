@@ -7,5 +7,5 @@ public interface TradeService {
 
 	OrderBtcdoVO createOrder(OrderBtcdoVO order);
 
-	OrderBtcdoVO[] getOrders(long offsetId, long limit);
+	OrderBtcdoVO[] getOrders(long offsetId, int limit,String symbol);
 }

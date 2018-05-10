@@ -30,7 +30,7 @@ public class BtcdoApplicationTests extends AbstractTest {
 	public void test() {
 		getPriceBySymbol();
 		getOrderById(152650L);
-		getOrders(0, 5);
+		getOrders(0, 10, "BDB_ETH");
 		createOrder();
 		getAccount();
 		getDepositLog();
@@ -44,8 +44,8 @@ public class BtcdoApplicationTests extends AbstractTest {
 		logger.info("getOrderById resp is :{}", tradeService.getOrderById(orderId));
 	}
 
-	public void getOrders(long offsetId, long limit) {
-		logger.info("getOrders resp is :{}", Arrays.toString(tradeService.getOrders(offsetId, limit)));
+	public void getOrders(long offsetId, int limit, String symbol) {
+		logger.info("getOrders resp is :{}", Arrays.toString(tradeService.getOrders(offsetId, limit, symbol)));
 	}
 
 	public void createOrder() {

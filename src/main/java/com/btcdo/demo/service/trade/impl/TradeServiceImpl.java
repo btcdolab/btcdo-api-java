@@ -43,10 +43,11 @@ public class TradeServiceImpl extends AbstractService implements TradeService {
 	}
 
 	@Override
-	public OrderBtcdoVO[] getOrders(long offsetId, long limit) {
+	public OrderBtcdoVO[] getOrders(long offsetId, int limit, String symbol) {
 		Map<String, String> inputMap = new HashMap<String, String>();
 		inputMap.put("offsetId", Long.toString(offsetId));
-		inputMap.put("limit", Long.toString(limit));
+		inputMap.put("limit", Integer.toString(limit));
+		inputMap.put("symbol", symbol);
 		Map<String, OrderBtcdoVO[]> order = client.getRestClientSign()
 				.get(new TypeReference<Map<String, OrderBtcdoVO[]>>() {
 				}, "/v1/trade/orders", inputMap);
