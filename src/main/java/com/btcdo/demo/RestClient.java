@@ -32,6 +32,7 @@ import okhttp3.ResponseBody;
 /**
  * Http client for accessing crypto exchange REST APIs.
  * 
+ * @author liaoxuefeng
  */
 public class RestClient {
 
@@ -43,7 +44,6 @@ public class RestClient {
 	final String apiSecret;
 
 	OkHttpClient client;
-	Request lastRequest = null;
 
 	public static class Builder {
 
@@ -55,8 +55,8 @@ public class RestClient {
 		String apiKey;
 		String apiSecret;
 
-		int connectTimeout = 30;
-		int readTimeout = 30;
+		int connectTimeout = 15;
+		int readTimeout = 15;
 		int keepAlive = 30;
 
 		/**
@@ -133,23 +133,22 @@ public class RestClient {
 
 	public <T> T get(Class<T> clazz, String path, Map<String, String> query) {
 		Objects.requireNonNull(clazz);
-			return request(clazz, null, "GET", path, query, null);
+		return request(clazz, null, "GET", path, query, null);
 	}
 
 	public <T> T get(TypeReference<T> ref, String path, Map<String, String> query) {
 		Objects.requireNonNull(ref);
-			return request(null, ref, "GET", path, query, null);
+		return request(null, ref, "GET", path, query, null);
 	}
 
 	public <T> T post(Class<T> clazz, String path, Object body) {
 		Objects.requireNonNull(clazz);
-			return request(clazz, null, "POST", path, null, body);
+		return request(clazz, null, "POST", path, null, body);
 	}
 
 	public <T> T post(TypeReference<T> ref, String path, Object body) {
 		Objects.requireNonNull(ref);
-		
-			return request(null, ref, "POST", path, null, body);
+		return request(null, ref, "POST", path, null, body);
 	}
 
 	<T> T request(Class<T> clazz, TypeReference<T> ref, String method, String path, Map<String, String> query,
@@ -221,17 +220,9 @@ public class RestClient {
 		// sign:
 		String sign = HashUtil.hmacSha256(payloadToSign.toString().getBytes(StandardCharsets.UTF_8), apiSecret);
 		requestBuilder.addHeader(HEADER_API_SIGNATURE, sign);
-
-		this.lastRequest = requestBuilder.build();
-		return retry(clazz, ref);
-	}
-
-	public <T> T retry(Class<T> clazz, TypeReference<T> ref) {
-		if (this.lastRequest == null) {
-			throw new RuntimeException("Cannot execute previous request.");
-		}
+		Request request = requestBuilder.build();
 		try {
-			return execute(clazz, ref, this.lastRequest);
+			return execute(clazz, ref, request);
 		} catch (IOException e) {
 			throw new RuntimeException("IOException", e);
 		}
