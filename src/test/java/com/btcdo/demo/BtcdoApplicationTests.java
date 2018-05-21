@@ -3,6 +3,7 @@ package com.btcdo.demo;
 import java.math.BigDecimal;
 import java.util.Arrays;
 
+import com.btcdo.demo.service.websocket.WebsocketService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class BtcdoApplicationTests extends AbstractTest {
 	TradeService tradeService;
 	@Autowired
 	UserService userService;
+	@Autowired
+	WebsocketService websocketService;
 
 	@Test
 	public void test() {
@@ -34,6 +37,7 @@ public class BtcdoApplicationTests extends AbstractTest {
 		createOrder();
 		getAccount();
 		getDepositLog();
+		testWebsocket();
 	}
 
 	public void getPriceBySymbol() {
@@ -66,4 +70,12 @@ public class BtcdoApplicationTests extends AbstractTest {
 		logger.info("getDepositLog resp is :{}", userService.getDepositLog("BDB"));
 	}
 
+	public void testWebsocket(){
+		try {
+			Thread.sleep(20000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		logger.info("websocket resp is :{}", websocketService.getAllPrice().toString());
+	}
 }

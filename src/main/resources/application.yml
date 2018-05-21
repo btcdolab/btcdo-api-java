@@ -10,3 +10,6 @@ logging:
   level:
     crypto.log: INFO
     com.itranswarp.warpdb.WarpDb: DEBUG
+# WebSocket配置
+websocket:
+      uri: wss://xxx.btcdo.com/v1/market/?EIO=3&transport=websocket
