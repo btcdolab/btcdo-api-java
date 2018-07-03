@@ -2,9 +2,10 @@
 api: 
   setting: 
     btcdo: 
-      apiKey: AAAAAYax9qXXXXXXJ2R27f5Eg629bJt3
-      apiSecret: n6qKwe7XXXX8udkJShyP
-      restApiEndpoint: https://xxx.btcdo.org
+      #登录Btcdo账户，在“个人中心”→“安全中心”获取API-KEY和API-SECRET
+      apiKey: 您的APIKEY
+      apiSecret: 您的APISECRET
+      restApiEndpoint: https://api.btcdo.com
 # logging config:
 logging:
   level:
@@ -12,4 +13,4 @@ logging:
     com.itranswarp.warpdb.WarpDb: DEBUG
 # WebSocket配置
 websocket:
-      uri: wss://xxx.btcdo.com/v1/market/?EIO=3&transport=websocket
+      uri: wss://onli-quotation.btcdo.com/v1/market/?EIO=3&transport=websocket
